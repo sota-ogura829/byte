@@ -1,6 +1,27 @@
 import psycopg2
 import json
 
+def read_uint(data, offset, length, endian="little"):
+    """
+    指定バイトを整数へ変換
+    """
+    return int.from_bytes(data[offset:offset+length], endian)
+
+
+def parse_cond(cond_bytes):
+
+    offset = 0
+    result = {}
+
+    # -------------------------
+    # ヘッダ
+    # -------------------------
+
+    data_size = read_uint(cond_bytes, offset, 2)
+    offset += 2
+
+    data_count = read_uint(cond_bytes, offset, 2)
+    offset += 2
 
 def main():
     cord =0b00001100
